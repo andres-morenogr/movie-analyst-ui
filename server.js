@@ -1,9 +1,9 @@
 // Declare our dependencies
-var express = require('express');
-var request = require('superagent');
-var backendHost = process.env.BACK_HOST || 'localhost';
+const express = require('express');
+const request = require('superagent');
+const backendHost = process.env.BACK_HOST || 'localhost';
 // Create our express app
-var app = express();
+let app = express();
 
 // Set the view engine to use EJS as well as set the default views directory
 app.set('view engine', 'ejs');
@@ -28,7 +28,7 @@ app.get('/movies', function(req, res){
       if(data.status == 403){
         res.send(403, '403 Forbidden');
       } else {
-        var movies = data.body;
+        let movies = data.body;
         res.render('movies', { movies: movies} );
       }
     })
@@ -44,7 +44,7 @@ app.get('/authors', function(req, res){
       if(data.status == 403){
         res.send(403, '403 Forbidden');
       } else {
-        var authors = data.body;
+        let authors = data.body;
         res.render('authors', {authors : authors});
       }
     })
@@ -57,7 +57,7 @@ app.get('/publications', function(req, res){
       if(data.status == 403){
         res.send(403, '403 Forbidden');
       } else {
-        var publications = data.body;
+        let publications = data.body;
         res.render('publications', {publications : publications});
       }
     })
@@ -70,6 +70,9 @@ app.get('/pending', function(req, res){
     .end(function(err, data) {
       if(data.status == 403){
         res.send(403, '403 Forbidden');
+      }else{
+        let pendingPublications = data.body;
+        res.render('movies',{movies:pendingPublications});
       }
     })
 })
